@@ -1,0 +1,24 @@
+# Environment / secrets
+.env
+.env.*
+
+# Logs
+*.log
+
+# VS Code
+.vscode/
+
+# Temporary files
+temp/
+tmp/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local database configuration containing credentials
+config/database.local.php
+
+# Backups
+*.bak
+*.backup
