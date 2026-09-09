@@ -743,3 +743,1044 @@ body.estop-locked {
         white-space: normal;
     }
 }
+
+/* ==========================================================================
+   Command Center (index.php page structure)
+   ========================================================================== */
+
+.command-center {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+}
+
+.mission-status {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    background: var(--navy, #0B1220);
+    border-radius: 14px;
+    color: #FFFFFF;
+}
+
+.mission-status__badge {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 13px;
+    border-radius: 999px;
+    background: rgba(34, 197, 94, 0.14);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.mission-status__badge-dot {
+    width: 7px;
+    height: 7px;
+    flex: 0 0 7px;
+    border-radius: 50%;
+    background: var(--safe, #22C55E);
+    animation: zoSidebarPulse 1.6s infinite;
+}
+
+.mission-status__badge-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: #4ADE80;
+}
+
+.mission-status__divider {
+    width: 1px;
+    height: 34px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.mission-status__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 26px;
+    flex: 1;
+    min-width: 0;
+}
+
+.mission-status__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.mission-status__stat--risk {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.mission-status__stat-label {
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    color: var(--text-secondary, #64748B);
+}
+
+.mission-status__stat-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #FFFFFF;
+}
+
+.mission-status__stat-value--mono {
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+.mission-status__stat-value--safe {
+    color: var(--safe, #22C55E);
+}
+
+.mission-status__stat-value--warning {
+    color: var(--warning, #F59E0B);
+}
+
+.mission-status__stat-value--critical {
+    color: var(--critical, #EF4444);
+}
+
+.command-center__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 16px;
+    align-items: start;
+}
+
+.command-center__main,
+.command-center__rail {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+}
+
+/* -- Generic panel (card) used by every Command Center section ------------ */
+
+.panel {
+    background: var(--surface, #FFFFFF);
+    border: 1px solid #E5E9F0;
+    border-radius: 14px;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+    overflow: hidden;
+}
+
+.panel--dark {
+    background: var(--navy, #0B1220);
+    border: none;
+    color: #FFFFFF;
+}
+
+.panel__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid #EEF1F6;
+}
+
+.panel--dark .panel__header {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.panel__heading {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+}
+
+.panel__icon {
+    display: flex;
+    flex: 0 0 auto;
+    color: var(--text-secondary, #64748B);
+}
+
+.panel--dark .panel__icon {
+    color: #94A3B8;
+}
+
+.panel__title {
+    margin: 0;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text-primary, #111827);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.panel--dark .panel__title {
+    color: #F8FAFC;
+}
+
+.panel__body {
+    padding: 16px;
+}
+
+.panel__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 96px;
+    border: 1px dashed #E5E9F0;
+    border-radius: 10px;
+    padding: 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary, #64748B);
+    text-align: center;
+}
+
+.panel--dark .panel__placeholder {
+    border-color: rgba(255, 255, 255, 0.14);
+    color: #94A3B8;
+}
+
+/* ==========================================================================
+   Live Camera panel
+   Camera is not connected yet — the feed area only ever shows a static
+   "waiting for ESP32-CAM" placeholder. Pan/tilt controls are rendered
+   disabled until a real link exists. IDs below are for future integration.
+   ========================================================================== */
+
+.camera-panel__source {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary, #64748B);
+}
+
+.camera-panel__status {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex: 0 0 auto;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: #F1F5F9;
+    color: #64748B;
+}
+
+.camera-panel__status[data-camera-connection="online"] {
+    background: rgba(34, 197, 94, 0.14);
+    color: #15803D;
+}
+
+.camera-panel__status[data-camera-connection="connecting"] {
+    background: rgba(245, 158, 11, 0.14);
+    color: #92400E;
+}
+
+.camera-panel__status-dot {
+    width: 6px;
+    height: 6px;
+    flex: 0 0 6px;
+    border-radius: 50%;
+    background: #94A3B8;
+}
+
+.camera-panel__status[data-camera-connection="online"] .camera-panel__status-dot {
+    background: var(--safe, #22C55E);
+    animation: zoSidebarPulse 1.8s infinite;
+}
+
+.camera-panel__status[data-camera-connection="connecting"] .camera-panel__status-dot {
+    background: var(--warning, #F59E0B);
+}
+
+.camera-panel__status-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+.camera-feed {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--navy, #0B1220);
+    background-image: repeating-linear-gradient(135deg, #131C2E 0 14px, #0F1725 14px 28px);
+    overflow: hidden;
+}
+
+.camera-feed__placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px;
+    text-align: center;
+}
+
+.camera-feed__placeholder-icon {
+    display: flex;
+    color: #475569;
+}
+
+.camera-feed__placeholder-icon svg {
+    width: 34px;
+    height: 34px;
+}
+
+.camera-feed__placeholder-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: #94A3B8;
+}
+
+.camera-feed__placeholder-subtitle {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    color: #64748B;
+}
+
+.camera-feed__overlay {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.camera-feed__overlay--top-left {
+    top: 12px;
+    left: 12px;
+}
+
+.camera-feed__overlay--top-right {
+    top: 12px;
+    right: 12px;
+}
+
+.camera-feed__overlay--bottom-left {
+    bottom: 12px;
+    left: 12px;
+}
+
+.camera-feed__overlay--bottom-right {
+    bottom: 12px;
+    right: 12px;
+}
+
+.camera-feed__live {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 9px;
+    border-radius: 6px;
+    background: rgba(148, 163, 184, 0.18);
+}
+
+.camera-feed__live-dot {
+    width: 6px;
+    height: 6px;
+    flex: 0 0 6px;
+    border-radius: 50%;
+    background: #94A3B8;
+}
+
+.camera-feed__live-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #CBD5E1;
+}
+
+.camera-feed__live[data-camera-live="true"] {
+    background: rgba(239, 68, 68, 0.9);
+}
+
+.camera-feed__live[data-camera-live="true"] .camera-feed__live-dot {
+    background: #FFFFFF;
+    animation: zoCameraLivePulse 1.4s infinite;
+}
+
+.camera-feed__live[data-camera-live="true"] .camera-feed__live-label {
+    color: #FFFFFF;
+}
+
+@keyframes zoCameraLivePulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+}
+
+.camera-feed__signal,
+.camera-feed__timestamp,
+.camera-feed__pan-tilt {
+    padding: 5px 9px;
+    border-radius: 6px;
+    background: rgba(11, 18, 32, 0.72);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: #CBD5E1;
+    white-space: nowrap;
+}
+
+.camera-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 18px;
+    padding: 13px 16px;
+}
+
+.camera-controls__group {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.camera-controls__label {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary, #64748B);
+}
+
+.camera-controls__buttons {
+    display: flex;
+    gap: 6px;
+}
+
+.camera-controls__btn {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: 1px solid #E5E9F0;
+    background: var(--surface, #FFFFFF);
+    color: #334155;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.camera-controls__btn:hover:not(:disabled) {
+    border-color: #FF8A4C;
+    color: #FF6B2C;
+}
+
+.camera-controls__btn--center {
+    color: #94A3B8;
+}
+
+.camera-controls__btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.camera-controls__latency {
+    margin-left: auto;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: #94A3B8;
+}
+
+/* ==========================================================================
+   Rover Control panel
+   Visual/demo D-pad only — no motor or WebSocket logic. Normal drive
+   controls (D-pad + normal STOP) use ZERO OUTPUT orange throughout;
+   #EF4444 is reserved for the Emergency Stop button so the two are never
+   confused. Emergency Stop reuses the shared E-stop modal from
+   components/estop-modal.php via the [data-estop-trigger] attribute.
+   ========================================================================== */
+
+.rover-control {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.rover-control__dpad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+        ".    forward ."
+        "left stop    right"
+        ".    backward .";
+    gap: 8px;
+    max-width: 232px;
+    margin: 0 auto;
+}
+
+.dpad-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    min-height: 56px;
+    padding: 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 107, 44, 0.35);
+    background: var(--navy-secondary, #172033);
+    color: var(--orange-hover, #FF8A4C);
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.dpad-btn:hover {
+    background: var(--orange, #FF6B2C);
+    border-color: var(--orange, #FF6B2C);
+    color: #FFFFFF;
+}
+
+.dpad-btn:active {
+    transform: scale(0.97);
+}
+
+.dpad-btn__label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.dpad-btn__arrow {
+    font-size: 15px;
+    line-height: 1;
+}
+
+.dpad-btn--forward {
+    grid-area: forward;
+    flex-direction: column;
+}
+
+.dpad-btn--backward {
+    grid-area: backward;
+    flex-direction: column;
+}
+
+.dpad-btn--left {
+    grid-area: left;
+    flex-direction: row;
+}
+
+.dpad-btn--right {
+    grid-area: right;
+    flex-direction: row;
+}
+
+.dpad-btn--stop {
+    grid-area: stop;
+    background: var(--orange, #FF6B2C);
+    border-color: var(--orange, #FF6B2C);
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.dpad-btn--stop:hover {
+    background: var(--orange-hover, #FF8A4C);
+    border-color: var(--orange-hover, #FF8A4C);
+}
+
+.rover-control__speed-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.rover-control__speed-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: #94A3B8;
+}
+
+.rover-control__speed-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--orange-hover, #FF8A4C);
+}
+
+.rover-control__speed-slider {
+    width: 100%;
+    accent-color: var(--orange, #FF6B2C);
+}
+
+.rover-control__estop {
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.rover-control__estop-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: 100%;
+    height: 52px;
+    border: none;
+    border-radius: 12px;
+    background: var(--critical, #EF4444);
+    color: #FFFFFF;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    box-shadow: 0 8px 22px rgba(239, 68, 68, 0.3);
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.rover-control__estop-button:hover {
+    background: #DC2626;
+}
+
+.rover-control__estop-button:active {
+    transform: scale(0.98);
+}
+
+.rover-control__estop-icon {
+    display: flex;
+    flex: 0 0 auto;
+}
+
+.rover-control__estop-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* ==========================================================================
+   Sensor Overview panel
+   Static placeholder readings only — mock-data.js is not wired up yet.
+   Status badge color is driven by [data-status] so a future data layer can
+   swap the word and the color together by just changing that attribute.
+   ========================================================================== */
+
+.sensor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(152px, 1fr));
+    gap: 1px;
+    background: #EEF1F6;
+}
+
+.sensor-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 14px 15px;
+    background: var(--surface, #FFFFFF);
+}
+
+.sensor-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.sensor-card__label-group {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-width: 0;
+}
+
+.sensor-card__icon {
+    display: flex;
+    flex: 0 0 auto;
+    color: var(--text-secondary, #64748B);
+}
+
+.sensor-card__label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--text-secondary, #64748B);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sensor-card__status {
+    flex: 0 0 auto;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: #F1F5F9;
+    color: #475569;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+}
+
+.sensor-card__status[data-status="normal"],
+.sensor-card__status[data-status="safe"],
+.sensor-card__status[data-status="stable"],
+.sensor-card__status[data-status="good"] {
+    background: rgba(34, 197, 94, 0.12);
+    color: #15803D;
+}
+
+.sensor-card__status[data-status="detected"] {
+    background: rgba(245, 158, 11, 0.14);
+    color: #92400E;
+}
+
+.sensor-card__value-row {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.sensor-card__value {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary, #111827);
+}
+
+.sensor-card__unit {
+    font-size: 12px;
+    font-weight: 500;
+    color: #94A3B8;
+}
+
+.sensor-card__source {
+    font-size: 9.5px;
+    letter-spacing: 0.03em;
+    color: #CBD5E1;
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+.sensor-overview__note {
+    padding: 10px 16px;
+    border-top: 1px solid #EEF1F6;
+    font-size: 10.5px;
+    color: #94A3B8;
+}
+
+/* ==========================================================================
+   Overall Risk Assessment panel
+   Presentation only — the score, level, gauge fill and factor bars below
+   are all static placeholder values. No risk is computed on this page.
+   ========================================================================== */
+
+.risk-assessment__summary {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.risk-assessment__level {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text-primary, #111827);
+}
+
+.risk-assessment__level[data-risk-level="low"] {
+    color: var(--safe, #22C55E);
+}
+
+.risk-assessment__level[data-risk-level="medium"] {
+    color: var(--warning, #F59E0B);
+}
+
+.risk-assessment__level[data-risk-level="high"] {
+    color: var(--critical, #EF4444);
+}
+
+.risk-assessment__subtitle {
+    margin-top: 2px;
+    font-size: 11.5px;
+    color: var(--text-secondary, #64748B);
+}
+
+.risk-assessment__score {
+    flex: 0 0 auto;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--text-secondary, #64748B);
+}
+
+.risk-assessment__score-value {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text-primary, #111827);
+}
+
+.risk-gauge {
+    display: flex;
+    gap: 3px;
+    margin-top: 14px;
+}
+
+.risk-gauge__segment {
+    flex: 1;
+    height: 8px;
+    border-radius: 2px;
+    background: #EEF1F6;
+}
+
+.risk-gauge__segment--low.is-filled {
+    background: var(--safe, #22C55E);
+}
+
+.risk-gauge__segment--medium.is-filled {
+    background: var(--warning, #F59E0B);
+}
+
+.risk-gauge__segment--high.is-filled {
+    background: var(--critical, #EF4444);
+}
+
+.risk-gauge__scale {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: #94A3B8;
+    text-transform: uppercase;
+}
+
+.risk-factors {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    margin-top: 16px;
+}
+
+.risk-factor__row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 11.5px;
+}
+
+.risk-factor__label {
+    color: #334155;
+    font-weight: 500;
+}
+
+.risk-factor__value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+}
+
+.risk-factor__value--low {
+    color: var(--safe, #22C55E);
+}
+
+.risk-factor__value--medium {
+    color: var(--warning, #F59E0B);
+}
+
+.risk-factor__value--high {
+    color: var(--critical, #EF4444);
+}
+
+.risk-factor__track {
+    height: 5px;
+    border-radius: 3px;
+    background: #EEF1F6;
+    overflow: hidden;
+}
+
+.risk-factor__bar {
+    height: 100%;
+    border-radius: 3px;
+}
+
+.risk-factor__bar--low {
+    background: var(--safe, #22C55E);
+}
+
+.risk-factor__bar--medium {
+    background: var(--warning, #F59E0B);
+}
+
+.risk-factor__bar--high {
+    background: var(--critical, #EF4444);
+}
+
+/* ==========================================================================
+   Live Alerts panel
+   Static demo entries only — no alert generation logic, no data fetching.
+   Severity color is driven by [data-severity] on each row so a future data
+   layer can swap the word and the color together in one place.
+   ========================================================================== */
+
+.live-alerts__count {
+    flex: 0 0 auto;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: #FEF3C7;
+    color: #B45309;
+    font-size: 10.5px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.live-alerts__list {
+    display: flex;
+    flex-direction: column;
+}
+
+.live-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #F4F6FA;
+}
+
+.live-alert:last-child {
+    border-bottom: none;
+}
+
+.live-alert__dot {
+    width: 8px;
+    height: 8px;
+    flex: 0 0 8px;
+    margin-top: 4px;
+    border-radius: 50%;
+    background: #94A3B8;
+}
+
+.live-alert[data-severity="normal"] .live-alert__dot {
+    background: var(--safe, #22C55E);
+}
+
+.live-alert[data-severity="warning"] .live-alert__dot {
+    background: var(--warning, #F59E0B);
+}
+
+.live-alert[data-severity="critical"] .live-alert__dot {
+    background: var(--critical, #EF4444);
+}
+
+.live-alert__body {
+    flex: 1;
+    min-width: 0;
+}
+
+.live-alert__message {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text-primary, #111827);
+}
+
+.live-alert__time {
+    margin-top: 2px;
+    font-size: 10.5px;
+    color: #94A3B8;
+}
+
+.live-alert__severity {
+    flex: 0 0 auto;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: #F1F5F9;
+    color: #475569;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+
+.live-alert[data-severity="normal"] .live-alert__severity {
+    background: rgba(34, 197, 94, 0.12);
+    color: #15803D;
+}
+
+.live-alert[data-severity="warning"] .live-alert__severity {
+    background: rgba(245, 158, 11, 0.14);
+    color: #92400E;
+}
+
+.live-alert[data-severity="critical"] .live-alert__severity {
+    background: rgba(239, 68, 68, 0.14);
+    color: #991B1B;
+}
+
+/* ==========================================================================
+   Relative Position panel
+   No GPS on the rover — X/Y/heading/distance are odometry + IMU dead
+   reckoning from the mission start point, never latitude/longitude. The
+   small diagram below is a static illustrative sketch of that offset, not
+   a real map: no mapping or localization logic runs here.
+   ========================================================================== */
+
+.relative-position__note {
+    margin: 0 0 14px;
+    font-size: 10.5px;
+    color: var(--text-secondary, #64748B);
+}
+
+.relative-position__viz {
+    margin-bottom: 16px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #F8FAFC;
+    border: 1px solid #EEF1F6;
+}
+
+.relative-position__viz-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+}
+
+.relative-position__viz-dot {
+    animation: zoRelativePositionPulse 2.2s infinite;
+}
+
+@keyframes zoRelativePositionPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.55; }
+}
+
+.relative-position__stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+}
+
+.relative-position__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.relative-position__label {
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: #94A3B8;
+}
+
+.relative-position__value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--text-primary, #111827);
+}

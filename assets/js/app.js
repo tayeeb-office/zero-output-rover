@@ -71,6 +71,11 @@
     /**
      * Emergency Stop — confirm modal + engaged banner state machine.
      * Demo UI state only: no ESP32/hardware command is ever sent here.
+     *
+     * Trigger buttons can live anywhere on the page (e.g. the floating
+     * global button and the one in the Rover Control panel both reuse this
+     * same modal), so triggers are queried document-wide rather than
+     * scoped to the [data-estop] root that holds the modal/banner markup.
      */
     function initEstopModal() {
         var root = document.querySelector('[data-estop]');
@@ -79,12 +84,13 @@
             return;
         }
 
-        var trigger = root.querySelector('[data-estop-trigger]');
+        var triggers = document.querySelectorAll('[data-estop-trigger]');
         var overlay = root.querySelector('[data-estop-overlay]');
         var cancelBtn = root.querySelector('[data-estop-cancel]');
         var confirmBtn = root.querySelector('[data-estop-confirm]');
         var banner = root.querySelector('[data-estop-banner]');
         var resetBtn = root.querySelector('[data-estop-reset]');
+        var lastTrigger = null;
 
         function setState(state) {
             root.setAttribute('data-estop-state', state);
@@ -100,7 +106,8 @@
             document.body.classList.toggle('estop-locked', state === 'confirming');
         }
 
-        function openConfirm() {
+        function openConfirm(event) {
+            lastTrigger = (event && event.currentTarget) || lastTrigger;
             setState('confirming');
 
             if (cancelBtn) {
@@ -111,8 +118,8 @@
         function cancel() {
             setState('idle');
 
-            if (trigger) {
-                trigger.focus();
+            if (lastTrigger) {
+                lastTrigger.focus();
             }
         }
 
@@ -127,14 +134,14 @@
         function reset() {
             setState('idle');
 
-            if (trigger) {
-                trigger.focus();
+            if (lastTrigger) {
+                lastTrigger.focus();
             }
         }
 
-        if (trigger) {
+        triggers.forEach(function (trigger) {
             trigger.addEventListener('click', openConfirm);
-        }
+        });
 
         if (cancelBtn) {
             cancelBtn.addEventListener('click', cancel);
@@ -165,13 +172,33 @@
         setState('idle');
     }
 
+    /**
+     * Rover Control speed readout — keeps the "current speed" label in sync
+     * with the slider. Visual/demo only: nothing here sends a speed command
+     * anywhere, it just mirrors the input's own value back onto the page.
+     */
+    function initRoverControlSpeed() {
+        var slider = document.getElementById('speed-slider');
+        var value = document.getElementById('speed-value');
+
+        if (!slider || !value) {
+            return;
+        }
+
+        slider.addEventListener('input', function () {
+            value.textContent = slider.value + '%';
+        });
+    }
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function () {
             initMobileNav();
             initEstopModal();
+            initRoverControlSpeed();
         });
     } else {
         initMobileNav();
         initEstopModal();
+        initRoverControlSpeed();
     }
 })();

@@ -276,3 +276,59 @@
         white-space: nowrap;
     }
 }
+
+/* ==========================================================================
+   Command Center responsive behavior
+   The main/rail two-column grid collapses to a single column below 1100px,
+   and the mission status bar's risk stat drops its right-alignment once it
+   wraps onto its own line below 640px.
+   ========================================================================== */
+
+@media (max-width: 1099px) {
+    .command-center__grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 639px) {
+    .mission-status {
+        padding: 14px 16px;
+    }
+
+    .mission-status__divider {
+        display: none;
+    }
+
+    .mission-status__stats {
+        gap: 18px;
+    }
+
+    .mission-status__stat--risk {
+        align-items: flex-start;
+        text-align: left;
+    }
+}
+
+@media (max-width: 759px) {
+    .main-content {
+        padding: 16px;
+    }
+}
+
+/* ==========================================================================
+   Live Camera panel responsive behavior
+   The source chip in the panel header is the first thing dropped once the
+   card gets tight; the latency readout stacks onto its own line once the
+   pan/tilt control groups no longer fit beside it.
+   ========================================================================== */
+
+@media (max-width: 479px) {
+    .camera-panel__source {
+        display: none;
+    }
+
+    .camera-controls__latency {
+        margin-left: 0;
+        flex: 1 0 100%;
+    }
+}
