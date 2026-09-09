@@ -1,0 +1,745 @@
+/* ==========================================================================
+   Sidebar (Mission Control desktop navigation)
+   ========================================================================== */
+
+.sidebar {
+    width: 252px;
+    flex: 0 0 252px;
+    background: var(--navy, #0B1220);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+}
+
+.sidebar__header {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 20px 18px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.sidebar__logo {
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
+    display: block;
+    flex: 0 0 38px;
+    object-fit: cover;
+}
+
+.sidebar__brand {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.sidebar__title {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: #FFFFFF;
+}
+
+.sidebar__subtitle {
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary, #64748B);
+    text-transform: uppercase;
+}
+
+.sidebar__nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.sidebar__group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.sidebar__group-label {
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #475569;
+    padding: 4px 10px 6px;
+}
+
+.sidebar__link {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 9px 10px;
+    border-radius: 9px;
+    cursor: pointer;
+    color: #94A3B8;
+    background: transparent;
+    font-weight: 500;
+    font-size: 13px;
+    text-decoration: none;
+    border: none;
+    width: 100%;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sidebar__link:hover {
+    background: var(--navy-secondary, #172033);
+    color: #E2E8F2;
+}
+
+.sidebar__link.is-active {
+    background: var(--orange, #FF6B2C);
+    color: #FFFFFF;
+    font-weight: 600;
+}
+
+.sidebar__link.is-active:hover {
+    background: var(--orange, #FF6B2C);
+    color: #FFFFFF;
+}
+
+.sidebar__link-icon {
+    width: 17px;
+    height: 17px;
+    flex: 0 0 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar__link-label {
+    font-size: 13px;
+    font-weight: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sidebar__footer {
+    padding: 14px 18px 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.sidebar__status-pill {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 12px;
+    border-radius: 9px;
+    background: rgba(34, 197, 94, 0.12);
+    color: #4ADE80;
+}
+
+.sidebar__status-pill.is-offline {
+    background: rgba(239, 68, 68, 0.14);
+    color: #F87171;
+}
+
+.sidebar__status-dot {
+    width: 7px;
+    height: 7px;
+    flex: 0 0 7px;
+    border-radius: 50%;
+    background: var(--safe, #22C55E);
+    animation: zoSidebarPulse 1.8s infinite;
+}
+
+.sidebar__status-pill.is-offline .sidebar__status-dot {
+    background: var(--critical, #EF4444);
+}
+
+.sidebar__status-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+}
+
+.sidebar__meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: #475569;
+}
+
+@keyframes zoSidebarPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.25; }
+}
+
+/* ==========================================================================
+   Header (Mission Control top bar)
+   ========================================================================== */
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 64px;
+    padding: 12px 22px;
+    background: var(--navy, #0B1220);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+}
+
+.header__left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.header__nav-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    border-radius: 9px;
+    border: none;
+    background: var(--navy-secondary, #172033);
+    color: #E2E8F2;
+    cursor: pointer;
+}
+
+.header__nav-toggle:hover {
+    background: #1E2A42;
+}
+
+.header__logo {
+    display: none;
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.header__titles {
+    min-width: 0;
+}
+
+.header__page-title {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #F8FAFC;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.header__page-subtitle {
+    margin: 0;
+    font-size: 11.5px;
+    color: var(--text-secondary, #64748B);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.header__right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 0 0 auto;
+}
+
+.header__status-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 34px;
+    padding: 0 12px;
+    border-radius: 8px;
+    background: rgba(34, 197, 94, 0.12);
+    color: #4ADE80;
+}
+
+.header__status-pill.is-offline {
+    background: rgba(239, 68, 68, 0.16);
+    color: #F87171;
+}
+
+.header__status-dot {
+    width: 7px;
+    height: 7px;
+    flex: 0 0 7px;
+    border-radius: 50%;
+    background: var(--safe, #22C55E);
+    animation: zoSidebarPulse 1.8s infinite;
+}
+
+.header__status-pill.is-offline .header__status-dot {
+    background: var(--critical, #EF4444);
+}
+
+.header__status-label {
+    font-size: 11.5px;
+    font-weight: 600;
+}
+
+.header__meta-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    height: 34px;
+    padding: 0 11px;
+    border-radius: 8px;
+    background: var(--navy-secondary, #172033);
+}
+
+.header__meta-icon {
+    display: flex;
+    flex: 0 0 auto;
+}
+
+.header__meta-icon--battery {
+    color: #4ADE80;
+}
+
+.header__meta-icon--timer {
+    color: #94A3B8;
+}
+
+.header__meta-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: #E2E8F2;
+}
+
+#mission-timer {
+    letter-spacing: 0.04em;
+}
+
+.header__alert-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    border-radius: 8px;
+    border: none;
+    background: var(--navy-secondary, #172033);
+    color: #94A3B8;
+    cursor: pointer;
+}
+
+.header__alert-button:hover {
+    background: #1E2A42;
+}
+
+.header__alert-badge {
+    position: absolute;
+    top: 7px;
+    right: 8px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--critical, #EF4444);
+    border: 1.5px solid var(--navy-secondary, #172033);
+}
+
+/* ==========================================================================
+   Connection Banner (reusable rover link status bar)
+   ========================================================================== */
+
+.connection-banner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 22px;
+    border-bottom: 1px solid transparent;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+}
+
+.connection-banner.is-connected {
+    background: #F0FDF4;
+    border-bottom-color: #BBF7D0;
+    color: #166534;
+}
+
+.connection-banner.is-connecting {
+    background: #FFFBEB;
+    border-bottom-color: #FDE68A;
+    color: #92400E;
+}
+
+.connection-banner.is-disconnected {
+    background: #FEF2F2;
+    border-bottom-color: #FECACA;
+    color: #991B1B;
+}
+
+.connection-banner__icon {
+    display: flex;
+    flex: 0 0 auto;
+}
+
+.connection-banner.is-connected .connection-banner__icon {
+    color: var(--safe, #22C55E);
+}
+
+.connection-banner.is-connecting .connection-banner__icon-svg {
+    color: var(--warning, #F59E0B);
+    animation: zoConnectionBannerSpin 1s linear infinite;
+    transform-origin: center;
+}
+
+.connection-banner.is-disconnected .connection-banner__icon-svg {
+    color: var(--critical, #EF4444);
+    animation: zoConnectionBannerBlink 1.4s infinite;
+}
+
+.connection-banner__body {
+    flex: 1;
+    min-width: 0;
+}
+
+.connection-banner__title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+.connection-banner.is-connected .connection-banner__title {
+    color: #166534;
+}
+
+.connection-banner.is-connecting .connection-banner__title {
+    color: #92400E;
+}
+
+.connection-banner.is-disconnected .connection-banner__title {
+    color: #991B1B;
+}
+
+.connection-banner__lines {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 10px;
+    margin: 3px 0 0;
+    padding: 0;
+    font-size: 11.5px;
+}
+
+.connection-banner.is-connected .connection-banner__lines {
+    color: #15803D;
+}
+
+.connection-banner.is-connecting .connection-banner__lines {
+    color: #B45309;
+}
+
+.connection-banner.is-disconnected .connection-banner__lines {
+    color: #B91C1C;
+}
+
+.connection-banner__line {
+    position: relative;
+}
+
+.connection-banner__line + .connection-banner__line {
+    padding-left: 10px;
+}
+
+.connection-banner__line + .connection-banner__line::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.6;
+    transform: translateY(-50%);
+}
+
+.connection-banner__action {
+    flex: 0 0 auto;
+    padding: 9px 15px;
+    border: none;
+    border-radius: 8px;
+    background: var(--critical, #EF4444);
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.connection-banner__action:hover {
+    background: #DC2626;
+}
+
+.connection-banner__action[hidden] {
+    display: none;
+}
+
+@keyframes zoConnectionBannerSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes zoConnectionBannerBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+}
+
+@media (max-width: 560px) {
+    .connection-banner {
+        flex-wrap: wrap;
+        padding: 12px 16px;
+    }
+
+    .connection-banner__action {
+        flex: 1 0 100%;
+    }
+}
+
+/* ==========================================================================
+   Emergency Stop (trigger + confirm modal + engaged banner)
+
+   Visually distinct from a normal STOP button on purpose: solid critical-red
+   fill, bold uppercase, octagon glyph, elevated shadow. A normal STOP control
+   must use a muted/dark style, never these classes.
+   ========================================================================== */
+
+.estop__trigger {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 80;
+    padding: 13px 18px;
+    border: none;
+    border-radius: 11px;
+    background: var(--critical, #EF4444);
+    color: #FFFFFF;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    box-shadow: 0 10px 26px rgba(239, 68, 68, 0.35);
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.estop__trigger:hover {
+    background: #DC2626;
+}
+
+.estop__trigger:active {
+    transform: scale(0.98);
+}
+
+.estop[data-estop-state="active"] .estop__trigger {
+    display: none;
+}
+
+.estop__trigger-icon {
+    flex: 0 0 auto;
+}
+
+.estop-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(11, 18, 32, 0.72);
+}
+
+.estop-modal[hidden] {
+    display: none;
+}
+
+.estop-modal__dialog {
+    width: 100%;
+    max-width: 420px;
+    background: var(--surface, #FFFFFF);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+}
+
+.estop-modal__header {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.estop-modal__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    border-radius: 11px;
+    background: #FEF2F2;
+    color: var(--critical, #EF4444);
+}
+
+.estop-modal__title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary, #111827);
+}
+
+.estop-modal__desc {
+    margin: 5px 0 0;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--text-secondary, #64748B);
+}
+
+.estop-modal__actions {
+    display: flex;
+    gap: 10px;
+    padding: 0 20px 20px;
+}
+
+.estop-modal__button {
+    flex: 1;
+    height: 44px;
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.estop-modal__button--cancel {
+    background: var(--surface, #FFFFFF);
+    border: 1px solid #E5E9F0;
+    color: #334155;
+}
+
+.estop-modal__button--cancel:hover {
+    background: #F5F7FA;
+}
+
+.estop-modal__button--confirm {
+    background: var(--critical, #EF4444);
+    color: #FFFFFF;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.estop-modal__button--confirm:hover {
+    background: #DC2626;
+}
+
+.estop-banner {
+    position: fixed;
+    left: 50%;
+    bottom: 22px;
+    z-index: 95;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 18px;
+    border-radius: 12px;
+    background: #7F1D1D;
+    color: #FFFFFF;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+}
+
+.estop-banner[hidden] {
+    display: none;
+}
+
+.estop-banner__dot {
+    width: 9px;
+    height: 9px;
+    flex: 0 0 9px;
+    border-radius: 50%;
+    background: #FCA5A5;
+    animation: zoEstopBlink 1s infinite;
+}
+
+.estop-banner__label {
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+}
+
+.estop-banner__reset {
+    border: none;
+    background: transparent;
+    padding: 0;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #FCA5A5;
+    text-decoration: underline;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.estop-banner__reset:hover {
+    color: #FFFFFF;
+}
+
+body.estop-locked {
+    overflow: hidden;
+}
+
+@keyframes zoEstopBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+@media (max-width: 759px) {
+    .estop__trigger {
+        right: 14px;
+        bottom: calc(64px + 14px + env(safe-area-inset-bottom, 0px));
+        padding: 12px 16px;
+    }
+
+    .estop-banner {
+        left: 14px;
+        right: 14px;
+        bottom: calc(64px + 14px + env(safe-area-inset-bottom, 0px));
+        transform: none;
+        flex-wrap: wrap;
+    }
+
+    .estop-banner__label {
+        white-space: normal;
+    }
+}

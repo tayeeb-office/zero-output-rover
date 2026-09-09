@@ -1,0 +1,59 @@
+:root {
+    --navy: #0B1220;
+    --navy-secondary: #172033;
+
+    --orange: #FF6B2C;
+    --orange-hover: #FF8A4C;
+
+    --background: #F5F7FA;
+    --surface: #FFFFFF;
+
+    --text-primary: #111827;
+    --text-secondary: #64748B;
+
+    --safe: #22C55E;
+    --warning: #F59E0B;
+    --critical: #EF4444;
+    --info: #38BDF8;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--background);
+    color: var(--text-primary);
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+}
+
+/* ==========================================================================
+   Application shell
+   Sidebar (fixed-width flex child, see .sidebar in components.css) beside a
+   stacked header + main-content column.
+   ========================================================================== */
+
+.app-shell {
+    display: flex;
+    min-height: 100vh;
+}
+
+.app-shell__body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+    padding: 24px;
+}
